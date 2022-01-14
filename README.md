@@ -35,3 +35,6 @@ Lab-Fields
 
 > __`Preview:`__
 Coming soon!
+
+Credits:
+- DoPeMan17 | Followed the logic for spawning props in areas.
