@@ -4,9 +4,13 @@ Drug Fields and Labs for FiveM
 Lab-Fields 
 
 > __`This resource contains Fields and Proccesing Labs:`__
+
 ●  | Add as many Fields/Labs, as you wish.
+
 ●  | Can be used both for Legal or Illegal goods.
+
 ●  | Has a huge variety of configuration for each Field/Lab seperately.
+
 ●  | Has a huge variety of features, such as, __Job Restriction for each Field/Lab__ (you can permit unlimited jobs) / Set a __minimum count of online police__ to make each Field/Lab interactable.
 
 > __`Features:`__
