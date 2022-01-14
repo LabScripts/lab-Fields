@@ -14,14 +14,21 @@ Lab-Fields
 ●  | Has a huge variety of features, such as, __Job Restriction for each Field/Lab__ (you can permit unlimited jobs) / Set a __minimum count of online police__ to make each Field/Lab interactable.
 
 > __`Features:`__
+
 ●  | Detailed Configuration.
+
 ●  | Adding a new Field/Lab, is easy as adding a new line in Config.
+
 ●  | Discord Logs for every action via Wehook.
+
 ●  | Every action comes with configurable animations and props, to make it smooth and fun.
+
 ●  | Optimised to 0.00-0.01ms CPU while idle.
 
 > __`Requirments:`__
+
 ●  | mythic_progbar - github.com/HalCroves/mythic_progbar
+
 ●  | ESX v1.1 or higher. (Highly suggest Legacy version)
 
 > __`Preview:`__
