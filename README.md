@@ -1,18 +1,18 @@
 # lab-Fields
 Drug Fields and Labs for FiveM
 
-**Lab-Fields** 
+Lab-Fields 
 
 > __`This resource contains Fields and Proccesing Labs:`__
-●  | Add as many **Fields**/**Labs**, as you wish.
-●  | Can be used **both **for **Legal **or **Illegal **goods.
-●  | Has a huge variety of configuration for each **Field**/**Lab** seperately.
-●  | Has a huge variety of features, such as, __Job Restriction for each Field/Lab__ (you can permit unlimited jobs) / Set a __minimum count of online police__ to make each **Field**/**Lab **interactable.
+●  | Add as many Fields/Labs, as you wish.
+●  | Can be used both for Legal or Illegal goods.
+●  | Has a huge variety of configuration for each Field/Lab seperately.
+●  | Has a huge variety of features, such as, __Job Restriction for each Field/Lab__ (you can permit unlimited jobs) / Set a __minimum count of online police__ to make each Field/Lab interactable.
 
 > __`Features:`__
 ●  | Detailed Configuration.
-●  | Adding a new **Field**/**Lab**, is easy as adding a new line in Config.
-●  | Discord Logs **for every action** via Wehook.
+●  | Adding a new Field/Lab, is easy as adding a new line in Config.
+●  | Discord Logs for every action via Wehook.
 ●  | Every action comes with configurable animations and props, to make it smooth and fun.
 ●  | Optimised to 0.00-0.01ms CPU while idle.
 
@@ -21,4 +21,4 @@ Drug Fields and Labs for FiveM
 ●  | ESX v1.1 or higher. (Highly suggest Legacy version)
 
 > __`Preview:`__
-**Coming soon!**
+Coming soon!
