@@ -6,7 +6,7 @@ Config.BlipSize = 0.8 -- Size of the blips.
 
 -- Configure anything except: spawnedPlants, DrugPlantsA and DrugCoords. These shall never be touched!
 Config.Fields = {
-    Heroin = {
+    Poppy = {
         FieldCoords = vector3(3522.56, 2569.64, 7.76), 
         label = 'Poppy', 
         itemName = 'poppyresin', 
@@ -45,7 +45,7 @@ Config.Fields = {
 
 -- Configure anything to your liking.
 Config.Labs = {
-    A = {
+    Heroin = {
         LabCoords = vector3(1391.84, 3605.88, 38.96), 
         neededLabel = 'Poppy', 
         givenLabel = 'Heroin', 
@@ -64,7 +64,7 @@ Config.Labs = {
         blipColour = 0,
         blipRadius = true
     },
-    B = {
+    Crack = {
         LabCoords = vector3(2433.88, 4969.2, 42.36), 
         neededLabel = 'Crack', 
         givenLabel = 'Crack Brick', 
