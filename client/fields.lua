@@ -46,8 +46,7 @@ function GenerateDrugCoords(Field, spawnedPlantsA, DrugPlants)
 		    CoordY = Field.y + modY
 			CoordZ = Field.z
 
-		    local coordZ = GetCoordZHeroin(CoordX, CoordY)
-		    local coord = vector3(CoordX, CoordY, coordZ)
+		    local coord = vector3(CoordX, CoordY, CoordZ)
 
 		    if ValidateHeroinCoord(coord, Field, spawnedPlantsA, DrugPlants) then
 			    return coord
@@ -73,20 +72,6 @@ function ValidateHeroinCoord(plantCoord, field, spawnedPlantsA, DrugPlants)
 	    else
 		    return true
 	    end
-end
-
-function GetCoordZHeroin(x, y)
-	local groundCheckHeights = { 10.0, 11.0, 12.0, 13.0, 14.0, 15.0, 16.0, 17.0, 18.0, 19.0, 20.0 }
-
-	for i, height in ipairs(groundCheckHeights) do
-		local foundGround, z = GetGroundZFor_3dCoord(x, y, height)
-
-		if foundGround then
-			return z
-		end
-	end
-
-	return 12.64
 end
 
 AddEventHandler('onResourceStop', function(resource)
