@@ -21,7 +21,7 @@ Lab-Fields
 
 ●  | Adding a new Field/Lab, is easy as adding a new line in Config.
 
-●  | Discord Logs for every action via Wehook.
+●  | Discord Logs for every action via Webhook.
 
 ●  | Every action comes with configurable animations and props, to make it smooth and fun.
 
