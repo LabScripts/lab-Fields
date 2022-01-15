@@ -7,7 +7,7 @@ Config.BlipSize = 0.8 -- Size of the blips.
 -- Configure anything except: spawnedPlants, DrugPlantsA and DrugCoords. These shall never be touched!
 Config.Fields = {
     A = {FieldCoords = vector3(3522.56, 2569.64, 7.76), label = 'Heroin', itemName = 'heroin', amount = 5, jobRestricted = true, jobs = {'ballas','unicorn','police'}, neededCops = 1, DrugProp = 'prop_cs_plant_01', duration = 1000, animDict= 'random@domestic', anim = 'pickup_low', blip = true, blipSprite = 403, blipColour = 0, spawnedPlants = 0, DrugPlantsA = {}, DrugCoords},
-	B = {FieldCoords = vector3(-1810.4, 2657.96, 3.4), label = 'Crack', itemName = 'crack', amount = 5, jobRestricted = false, jobs = {''}, neededCops = 0, DrugProp = 'ex_office_swag_drugbag2', duration = 1000, animDict= 'random@domestic', anim = 'pickup_low', blip = true, blipSprite = 497, blipColour = 1, spawnedPlants = 0, DrugPlantsA = {}, DrugCoords},
+	B = {FieldCoords = vector3(2351.28, 3070.52, 48.16), label = 'Crack', itemName = 'crack', amount = 5, jobRestricted = false, jobs = {''}, neededCops = 0, DrugProp = 'ex_office_swag_drugbag2', duration = 1000, animDict= 'random@domestic', anim = 'pickup_low', blip = true, blipSprite = 497, blipColour = 1, spawnedPlants = 0, DrugPlantsA = {}, DrugCoords},
 }
 
 -- Configure anything to your liking.
