@@ -98,6 +98,14 @@ Citizen.CreateThread(function()
 	for k, v in pairs(Config.Labs) do
 		if v.blip then
     		local coords = v.LabCoords
+
+			if v.blipRadius then
+				local k = AddBlipForRadius(coords, 100.0)
+				SetBlipHighDetail(k, true)
+				SetBlipColour(k, 1)
+				SetBlipAlpha (k, 128)
+			end
+
         	k = AddBlipForCoord(coords)
 
 			SetBlipHighDetail(k, true)
