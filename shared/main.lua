@@ -24,7 +24,7 @@ Config.Fields = {
         blipRadius = true,
         spawnedPlants = 0, DrugPlantsA = {}, DrugCoords
     },
-	Crack = {
+    Crack = {
         FieldCoords = vector3(2351.28, 3070.52, 48.16), 
         label = 'Crack', 
         itemName = 'crack', 
