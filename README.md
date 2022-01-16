@@ -38,3 +38,4 @@ https://streamable.com/0c2id8
 
 Credits:
 - DoPeMan17 | Followed the logic for spawning props in areas.
+- BaziForYou | Contributed making the code more optimised and secure + added some more features.
