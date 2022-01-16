@@ -3,7 +3,7 @@ ESX = nil
 TriggerEvent('esx:getSharedObject', function(obj) ESX = obj end)
 
 -- Logs
-discord = {
+local discord = {
     ['webhook'] = '',
     ['name'] = 'DRUG FIELDS',
     ['image'] = 'https://media.discordapp.net/attachments/832929996578226216/913995687178416148/istockphoto-979955616-612x612.jpg.png?width=676&height=676'
@@ -20,64 +20,124 @@ function Log(name, message)
     PerformHttpRequest(discord['webhook'], function(err, text, headers) end, 'POST', json.encode({username = discord['name'], embeds = data, avatar_url = discord['image']}), { ['Content-Type'] = 'application/json' })
 end
 
--- Get Online Police
-function CountCops()
-    if Config.Legacy then
-	    local xPlayers = ESX.GetExtendedPlayers()
-	    CopsConnected = 0
-	    for k,v in pairs(xPlayers) do
-            if v.job.name == 'police' then
-			    CopsConnected = CopsConnected + 1
-		    end
-	    end
-	    SetTimeout(120 * 1000, CountCops)
+-- Get Enough Jobs Is in Server Or No
+function HaveEnough(JobTable)
+    local Have = true
+    if ESX.GetExtendedPlayers then
+        for k,v in pairs(JobTable) do
+            local xPlayers = ESX.GetExtendedPlayers("job",k)
+            if #xPlayers < v then
+                Have = false
+                break
+            end
+        end
     else
         local xPlayers = ESX.GetPlayers()
-	    CopsConnected = 0
-	    for i=1, #xPlayers, 1 do
-		    local xPlayer = ESX.GetPlayerFromId(xPlayers[i])
-		    if xPlayer.job.name == 'police' then
-			    CopsConnected = CopsConnected + 1
-		    end
-	    end
-	    SetTimeout(120 * 1000, CountCops) -- Check every 2 minutes.
+        local Connected = {}
+        for i=1, #xPlayers, 1 do
+            local xPlayer = ESX.GetPlayerFromId(xPlayers[i])
+            if JobTable[xPlayer.job.name] then
+                if not Connected[xPlayer.job.name] then Connected[xPlayer.job.name] = 0 end
+                Connected[xPlayer.job.name] = Connected[xPlayer.job.name] + 1
+            end
+        end
+        for k,v in pairs(JobTable) do
+            if Connected[k] < v then
+                Have = false
+                break
+            end
+        end
     end
+    return Have
 end
-
-CountCops()
 
 -- Harvesting Event
 RegisterServerEvent('lab-fields:harvest')
-AddEventHandler('lab-fields:harvest', function(itemName, amount, label, neededCops)
-	local xPlayer = ESX.GetPlayerFromId(source)
-	local xItem = xPlayer.getInventoryItem(itemName)
-    if CopsConnected >= neededCops then
-	    if xPlayer.canCarryItem(itemName, amount) then
-		    xPlayer.addInventoryItem(itemName, amount)
-            xPlayer.showNotification('You harvested x' .. amount .. ' ' .. label .. '!')
-            Log(':pill:  ' .. xPlayer.getName() ..  ' - ' .. xPlayer.getIdentifier(), '```Harvested: x'.. amount ..' ' .. label .. '.```')
-	    else
-            xPlayer.showNotification('You can not carry more!')
-	    end
+AddEventHandler('lab-fields:harvest', function(Index)
+    local Field = Config.Fields[Index]
+    local xPlayer = ESX.GetPlayerFromId(source)
+    if not xPlayer then return end
+    if Field.jobs or (Field.jobs[xPlayer.job.name] and Field.jobs[xPlayer.job.name] <= xPlayer.job.grade) then
+        local IsThereEnoughJob = Field.neededJobs and true or HaveEnough(Field.neededJobs)
+        if IsThereEnoughJob then
+            local GivenItemName = Field.itemName
+            math.randomseed(os.time() + math.random(os.time) + math.random())
+            math.random(); math.random(); math.random();
+            local GivenItemCount = math.random(math.min(Field.amount.Min, Field.amount.Max),math.max(Field.amount.Min, Field.amount.Max))
+            local Label = Field.label or ESX.GetItemLabel(GivenItemName)
+            if xPlayer.canCarryItem(GivenItemName, GivenItemCount) then
+                xPlayer.addInventoryItem(GivenItemName, GivenItemCount)
+                xPlayer.showNotification('You harvested x' .. GivenItemCount .. ' ' .. Label .. '!')
+                Log(':pill:  ' .. xPlayer.getName() ..  ' - ' .. xPlayer.getIdentifier(), '```Harvested: x'.. GivenItemCount " " .. Label ..' (' .. GivenItemName ..').```')
+            else
+                xPlayer.showNotification('You can not carry more!')
+            end
+        else
+            xPlayer.showNotification('Not enough Jobs online.')
+        end
     else
-        xPlayer.showNotification('Not enough police online.')
+        xPlayer.showNotification('You cant dot this in this job you have.')
     end
 end)
 
+--[[
+    A = {
+        LabCoords = vector3(1391.84, 3605.88, 38.96),
+        neededLabel = 'Poppy',
+        givenLabel = 'Heroin',
+        neededItem = 'poppyresin',
+        neededAmount = 5,
+        givenItem = 'heroin',
+        givenAmount = {Min = 1, Max = 5},
+        jobRestricted = true,
+        jobs = { -- if dont want make that jobs = false,
+            ["ballas"] = 0, -- [JobName] = MinRank,
+            ["unicorn"] = 0, -- [JobName] = MinRank,
+            ["police"] = 0, -- [JobName] = MinRank,
+        }, 
+        neededJobs = { -- if dont want make that jobs = false,
+            ["police"] = 0, -- [JobName] = MinCount,
+            ["sherrif"] = 0, -- [JobName] = MinCount,
+        }, 
+        duration = 6000, 
+        animDict= 'missmechanic',
+        anim = 'work2_base',
+        blip = true,
+        blipSprite = 403,
+        blipColour = 0,
+        blipRadius = true
+    },
+]]
 -- Processing Event
 RegisterServerEvent('lab-fields:process')
-AddEventHandler('lab-fields:process', function(neededItem, neededAmount, neededLabel, givenItem, givenAmount, givenLabel, neededCops)
+-- AddEventHandler('lab-fields:process', function(neededItem, neededAmount, neededLabel, givenItem, givenAmount, givenLabel, neededCops)
+AddEventHandler('lab-fields:process', function(Index)
+    local Lab = Config.Labs[Index]
     local xPlayer = ESX.GetPlayerFromId(source)
-    if CopsConnected >= neededCops then
-        if xPlayer.canSwapItem(neededItem, neededAmount, givenItem, givenAmount) then
-            xPlayer.removeInventoryItem(neededItem, neededAmount)
-            xPlayer.addInventoryItem(givenItem, givenAmount)
-            xPlayer.showNotification('You processed: x' .. neededAmount .. ' ' .. neededLabel .. ' Into: x' .. givenAmount .. ' ' .. givenLabel ..'.')
-            Log(':pill:  ' .. xPlayer.getName() ..  ' - ' .. xPlayer.getIdentifier(), '```Processed: x' .. neededAmount .. ' ' .. neededLabel .. ' Into: x' .. givenAmount .. ' ' .. givenLabel ..'.```')
+    if not xPlayer then return end
+    if Lab.jobs or (Lab.jobs[xPlayer.job.name] and Lab.jobs[xPlayer.job.name] <= xPlayer.job.grade) then
+        local IsThereEnoughJob = Lab.neededJobs and true or HaveEnough(Lab.neededJobs)
+        if IsThereEnoughJob then
+            local givenItem = Lab.itemName
+            math.randomseed(os.time() + math.random(os.time) + math.random())
+            math.random(); math.random(); math.random();
+            local givenAmount = math.random(math.min(Lab.givenAmount.Min, Lab.givenAmount.Max),math.max(Lab.givenAmount.Min, Lab.givenAmount.Max))
+            local givenLabel = Lab.givenLabel or ESX.GetItemLabel(givenItem)
+            local neededItem = Lab.neededItem
+            local neededAmount = Lab.neededAmount
+            local neededLabel = Lab.neededLabel or ESX.GetItemLabel(neededItem)
+            if xPlayer.canSwapItem(neededItem, neededAmount, givenItem, givenAmount) then
+                xPlayer.removeInventoryItem(neededItem, neededAmount)
+                xPlayer.addInventoryItem(givenItem, givenAmount)
+                xPlayer.showNotification('You processed: x' .. neededAmount .. ' ' .. neededLabel .. ' Into: x' .. givenAmount .. ' ' .. givenLabel ..'.')
+                Log(':pill:  ' .. xPlayer.getName() ..  ' - ' .. xPlayer.getIdentifier(), '```Processed: x' .. neededAmount .. ' ' .. neededLabel .. ' Into: x' .. givenAmount .. ' ' .. givenLabel ..'.```')
+            else
+                xPlayer.showNotification('You can not do this action!')
+            end
         else
-            xPlayer.showNotification('You can not do this action!')
+            xPlayer.showNotification('Not enough Jobs online.')
         end
     else
-        xPlayer.showNotification('Not enough police online.')
+        xPlayer.showNotification('You cant dot this in this job you have.')
     end
 end)

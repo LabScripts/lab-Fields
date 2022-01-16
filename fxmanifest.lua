@@ -4,7 +4,7 @@ game 'gta5'
 name "lab-Fields"
 description "DrugFields&Labs"
 author "Dogo#1950"
-version "1.0.0"
+version "1.1.0"
 
 shared_scripts {
 	'shared/*.lua'
