@@ -4,12 +4,15 @@ Config.Legacy = true -- Set this to true if you are using ESX Legacy or above. (
 
 Config.BlipSize = 0.8 -- Size of the blips.
 
+Config.PropOutline = true -- Enable if you want field props to be outlined when close.
+Config.OutlineColor = {r = 42, g = 191, b = 171}
+
 -- Configure anything except: spawnedPlants, DrugPlantsA and DrugCoords. These shall never be touched!
 Config.Fields = {
-    Poppy = {
+    Heroin = {
         FieldCoords = vector3(3522.56, 2569.64, 7.76), 
-        label = 'Poppy', 
-        itemName = 'poppyresin', 
+        label = 'Heroin', 
+        itemName = 'heroin', 
         amount = 5, 
         jobRestricted = true, 
         jobs = {'ballas','unicorn','police'}, 
@@ -24,7 +27,7 @@ Config.Fields = {
         blipRadius = true,
         spawnedPlants = 0, DrugPlantsA = {}, DrugCoords
     },
-    Crack = {
+	Crack = {
         FieldCoords = vector3(2351.28, 3070.52, 48.16), 
         label = 'Crack', 
         itemName = 'crack', 
@@ -45,13 +48,13 @@ Config.Fields = {
 
 -- Configure anything to your liking.
 Config.Labs = {
-    Heroin = {
+    A = {
         LabCoords = vector3(1391.84, 3605.88, 38.96), 
-        neededLabel = 'Poppy', 
-        givenLabel = 'Heroin', 
-        neededItem = 'poppyresin', 
+        neededLabel = 'Heroin', 
+        givenLabel = 'Crack', 
+        neededItem = 'heroin', 
         neededAmount = 5, 
-        givenItem = 'heroin', 
+        givenItem = 'crack', 
         givenAmount = 1, 
         jobRestricted = true, 
         jobs = {'ballas','unicorn'}, 
@@ -64,7 +67,7 @@ Config.Labs = {
         blipColour = 0,
         blipRadius = true
     },
-    Crack = {
+    B = {
         LabCoords = vector3(2433.88, 4969.2, 42.36), 
         neededLabel = 'Crack', 
         givenLabel = 'Crack Brick', 
