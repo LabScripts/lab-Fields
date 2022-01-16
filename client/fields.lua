@@ -59,12 +59,12 @@ function EnsureCoords(plantCoord, field, spawnedPlantsA, DrugPlants)
 		    local Ensured = true
 
 		    for k, v in pairs(DrugPlants) do
-			    if GetDistanceBetweenCoords(plantCoord, GetEntityCoords(v), true) < 5 then
+			    if #(plantCoord - GetEntityCoords(v)) < 5 then
 				    Ensured = false
 			    end
 		    end
 
-		    if GetDistanceBetweenCoords(plantCoord, field, false) > 50 then
+		    if #(plantCoord - field) > 50 then
 			    Ensured = false
 		    end
 
@@ -93,7 +93,7 @@ Citizen.CreateThread(function()
 
     	for k, v in pairs(Config.Fields) do
 
-			if GetDistanceBetweenCoords(coords, v.FieldCoords, true) < 50 then
+			if #(coords - v.FieldCoords) < 50 then
 				Citizen.CreateThread(function()
 					while v.spawnedPlants < 15 do
 						Citizen.Wait(0)
@@ -110,7 +110,7 @@ Citizen.CreateThread(function()
 				end)
 
 		        for i=1, #v.DrugPlantsA, 1 do
-			        if GetDistanceBetweenCoords(coords, GetEntityCoords(v.DrugPlantsA[i]), false) < 1 then
+			        if #(coords - GetEntityCoords(v.DrugPlantsA[i])) < 2 then
 				        nearbyObject, nearbyID = v.DrugPlantsA[i], i
 			        end
 		        end
@@ -123,7 +123,7 @@ Citizen.CreateThread(function()
 			    end
 
 				if Config.PropOutline then
-					if GetDistanceBetweenCoords(coords, GetEntityCoords(nearbyObject), true) < 1.2 then
+					if #(coords - GetEntityCoords(nearbyObject)) < 1.8 then
 						SetEntityDrawOutline(nearbyObject, true)
 						SetEntityDrawOutlineColor(Config.OutlineColor.r,Config.OutlineColor.g,Config.OutlineColor.b,1)
 					else
