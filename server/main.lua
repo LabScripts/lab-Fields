@@ -58,7 +58,10 @@ AddEventHandler('lab-fields:harvest', function(Index)
     local xPlayer = ESX.GetPlayerFromId(source)
     if not xPlayer then return end
     if (not Field.jobs) or (Field.jobs[xPlayer.job.name] and Field.jobs[xPlayer.job.name] <= xPlayer.job.grade) then
-        local IsThereEnoughJob = Field.neededJobs and HaveEnough(Field.neededJobs) or false
+        local IsThereEnoughJob = true
+        if Field.neededJobs then
+            IsThereEnoughJob = HaveEnough(Field.neededJobs)
+        end
         if IsThereEnoughJob then
             local GivenItemName = Field.itemName
             math.randomseed(os.time() + math.random(os.time()) + math.random())
@@ -87,7 +90,10 @@ AddEventHandler('lab-fields:process', function(Index)
     local xPlayer = ESX.GetPlayerFromId(source)
     if not xPlayer then return end
     if (not Lab.jobs) or (Lab.jobs[xPlayer.job.name] and Lab.jobs[xPlayer.job.name] <= xPlayer.job.grade) then
-        local IsThereEnoughJob = Lab.neededJobs and HaveEnough(Lab.neededJobs) or true
+        local IsThereEnoughJob = true
+        if Lab.neededJobs then
+            IsThereEnoughJob = HaveEnough(Lab.neededJobs)
+        end
         if IsThereEnoughJob then
             local givenItem = Lab.givenItem
             math.randomseed(os.time() + math.random(os.time()) + math.random())
