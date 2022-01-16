@@ -20,6 +20,32 @@ function Log(name, message)
     PerformHttpRequest(discord['webhook'], function(err, text, headers) end, 'POST', json.encode({username = discord['name'], embeds = data, avatar_url = discord['image']}), { ['Content-Type'] = 'application/json' })
 end
 
+-- Support old ESX btw idk why you dont want update :/
+function showNotification(src, msg)
+    TriggerClientEvent('esx:showNotification', src, msg)
+end
+
+function canCarryItem(src, item, count)
+    local xPlayer = ESX.GetPlayerFromId(src)
+    if not count then count = 1 end
+    local item = xPlayer.getInventoryItem(item)
+    return ((item.limit == -1) or ((item.count + count) <= item.limit))
+end
+
+function canSwapItem(src, firstItem, firstItemCount, secendItem, secendItemCount)
+    local xPlayer = ESX.GetPlayerFromId(src)
+    local firstItemObject = xPlayer.getInventoryItem(firstItem)
+
+    if firstItemObject.count >= firstItemCount then
+        if canCarryItem(src, secendItem, secendItemCount) then
+            return true
+        end
+    end
+
+    return false
+end
+
+
 -- Get Enough Jobs Is in Server Or No
 function HaveEnough(JobTable)
     local Have = true
@@ -54,6 +80,7 @@ end
 -- Harvesting Event
 RegisterServerEvent('lab-fields:harvest')
 AddEventHandler('lab-fields:harvest', function(Index)
+    local source = source
     local Field = Config.Fields[Index]
     local xPlayer = ESX.GetPlayerFromId(source)
     if not xPlayer then return end
@@ -68,24 +95,25 @@ AddEventHandler('lab-fields:harvest', function(Index)
             math.random(); math.random(); math.random();
             local GivenItemCount = math.random(math.min(Field.amount.Min, Field.amount.Max),math.max(Field.amount.Min, Field.amount.Max))
             local Label = Field.label or ESX.GetItemLabel(GivenItemName)
-            if xPlayer.canCarryItem(GivenItemName, GivenItemCount) then
+            if (xPlayer.canCarryItem and xPlayer.canCarryItem(GivenItemName, GivenItemCount)) or canCarryItem(source, GivenItemName, GivenItemCount) then
                 xPlayer.addInventoryItem(GivenItemName, GivenItemCount)
-                xPlayer.showNotification('You harvested x' .. GivenItemCount .. ' ' .. Label .. '!')
+                showNotification(source, 'You harvested x' .. GivenItemCount .. ' ' .. Label .. '!')
                 Log(':pill:  ' .. xPlayer.getName() ..  ' - ' .. xPlayer.getIdentifier(), '```Harvested: x'.. GivenItemCount .." " .. Label ..' (' .. GivenItemName ..').```')
             else
-                xPlayer.showNotification('You can not carry more!')
+                showNotification(source, 'You can not carry more!')
             end
         else
-            xPlayer.showNotification('Not enough Jobs online.')
+            showNotification(source, 'Not enough Jobs online.')
         end
     else
-        xPlayer.showNotification('You cant dot this in this job you have.')
+        showNotification(source, 'You cant dot this in this job you have.')
     end
 end)
 
 -- Processing Event
 RegisterServerEvent('lab-fields:process')
 AddEventHandler('lab-fields:process', function(Index)
+    local source = source
     local Lab = Config.Labs[Index]
     local xPlayer = ESX.GetPlayerFromId(source)
     if not xPlayer then return end
@@ -103,18 +131,18 @@ AddEventHandler('lab-fields:process', function(Index)
             local neededItem = Lab.neededItem
             local neededAmount = Lab.neededAmount
             local neededLabel = Lab.neededLabel or ESX.GetItemLabel(neededItem)
-            if xPlayer.canSwapItem(neededItem, neededAmount, givenItem, givenAmount) then
+            if (xPlayer.canSwapItem and xPlayer.canSwapItem(neededItem, neededAmount, givenItem, givenAmount)) or canSwapItem(source, neededItem, neededAmount, givenItem, givenAmount) then
                 xPlayer.removeInventoryItem(neededItem, neededAmount)
                 xPlayer.addInventoryItem(givenItem, givenAmount)
-                xPlayer.showNotification('You processed: x' .. neededAmount .. ' ' .. neededLabel .. ' Into: x' .. givenAmount .. ' ' .. givenLabel ..'.')
+                showNotification(source, 'You processed: x' .. neededAmount .. ' ' .. neededLabel .. ' Into: x' .. givenAmount .. ' ' .. givenLabel ..'.')
                 Log(':pill:  ' .. xPlayer.getName() ..  ' - ' .. xPlayer.getIdentifier(), '```Processed: x' .. neededAmount .. ' ' .. neededLabel .. ' Into: x' .. givenAmount .. ' ' .. givenLabel ..'.```')
             else
-                xPlayer.showNotification('You can not do this action!')
+                showNotification(source, 'You can not do this action!')
             end
         else
-            xPlayer.showNotification('Not enough Jobs online.')
+            showNotification(source, 'Not enough Jobs online.')
         end
     else
-        xPlayer.showNotification('You cant dot this in this job you have.')
+        showNotification(source, 'You cant dot this in this job you have.')
     end
 end)
