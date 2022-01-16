@@ -122,6 +122,15 @@ Citizen.CreateThread(function()
 				    DrawText3Ds(plantcoords.x, plantcoords.y, plantcoords.z + 1.0, '[~HUD_COLOUR_CONTROLLER_MICHAEL~E~w~] Harvest ' .. v.label .. '.')
 			    end
 
+				if Config.PropOutline then
+					if GetDistanceBetweenCoords(coords, GetEntityCoords(nearbyObject), true) < 1.2 then
+						SetEntityDrawOutline(nearbyObject, true)
+						SetEntityDrawOutlineColor(Config.OutlineColor.r,Config.OutlineColor.g,Config.OutlineColor.b,1)
+					else
+						SetEntityDrawOutline(nearbyObject, false)
+					end
+				end
+
 			    if IsControlJustReleased(0, 38) and not isPickingUp then
 					local Job = 0
 					if v.jobRestricted then 
