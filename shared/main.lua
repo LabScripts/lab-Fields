@@ -12,12 +12,12 @@ Config.Fields = {
         label = 'Poppy', 
         itemName = 'poppyresin', 
         amount = {Min = 1, Max = 5},
-        jobs = { -- if dont want make that jobs = false,
+        jobs = { -- if dont want make that jobs = false,   These will be the jobs allowed to harvest this item.
             ["ballas"] = 0, -- [JobName] = MinRank,
             ["unicorn"] = 0, -- [JobName] = MinRank,
             ["police"] = 0, -- [JobName] = MinRank,
         }, 
-        neededJobs = { -- if dont want make that neededJobs = false,
+        neededJobs = { -- if dont want make that neededJobs = false,    These will be the jobs that are needed online to harvest this item.
             ["police"] = 0, -- [JobName] = MinCount,
             ["sherrif"] = 0, -- [JobName] = MinCount,
         }, 
@@ -60,12 +60,12 @@ Config.Labs = {
         neededAmount = 5,
         givenItem = 'heroin',
         givenAmount = {Min = 1, Max = 5},
-        jobs = { -- if dont want make that jobs = false,
+        jobs = { -- if dont want make that jobs = false,    These will be the jobs allowed to process this item.
             ["ballas"] = 0, -- [JobName] = MinRank,
             ["unicorn"] = 0, -- [JobName] = MinRank,
             ["police"] = 0, -- [JobName] = MinRank,
         }, 
-        neededJobs = { -- if dont want make that neededJobs = false,
+        neededJobs = { -- if dont want make that neededJobs = false,    These will be the jobs that are needed online to process this item.
             ["police"] = 0, -- [JobName] = MinCount,
             ["sherrif"] = 0, -- [JobName] = MinCount,
         }, 
