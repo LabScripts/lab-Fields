@@ -25,6 +25,7 @@ function showNotification(src, msg)
     TriggerClientEvent('esx:showNotification', src, msg)
 end
 
+-- thanks to loaf he made this snip long time ago so i didnt put time to read old esx to see how those work :D https://docs.loaf-scripts.com/
 function canCarryItem(src, item, count)
     local xPlayer = ESX.GetPlayerFromId(src)
     if not count then count = 1 end
