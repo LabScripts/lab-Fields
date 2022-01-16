@@ -14,7 +14,7 @@ Citizen.CreateThread(function()
 			elseif Distance <= 1.5 then
 				sleep = 5
 				DrawMarker(2,v.LabCoords,0.0,0.0,0.0,0,0.0,0.0,0.3,0.3,0.2,255,255,255,255,false,false,2,true,false,false,false)
-				DrawText3Ds(v.LabCoords.x,v.LabCoords.y,v.LabCoords.z + 0.3,"[~HUD_COLOUR_CONTROLLER_MICHAEL~E~w~] Process: ~r~x" ..v.neededAmount .." " ..v.neededLabel .. "~w~ Into: ~g~x" .. v.givenAmount .. " " .. v.givenLabel .. "~w~.")
+				DrawText3Ds(v.LabCoords.x,v.LabCoords.y,v.LabCoords.z + 0.3,"[~HUD_COLOUR_CONTROLLER_MICHAEL~E~w~] Process: ~r~x" ..v.neededAmount .." " ..v.neededLabel .. "~w~ Into: ~g~x" .. v.givenAmount.Min .. " - x" .. v.givenAmount.Max .. " " .. v.givenLabel .. "~w~.")
 				if IsControlJustReleased(0, 38) and not isProcessing then
 					if v.jobs then
 						if PlayerData.job ~= nil and PlayerData.job.name and v.jobs[PlayerData.job.name] and v.jobs[PlayerData.job.name] <= PlayerData.job.grade then
