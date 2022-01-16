@@ -34,7 +34,7 @@ Lab-Fields
 ●  | ESX v1.1 or higher. (Highly suggest Legacy version)
 
 > __`Preview:`__
-Coming soon!
+https://streamable.com/0c2id8
 
 Credits:
 - DoPeMan17 | Followed the logic for spawning props in areas.
