@@ -17,7 +17,7 @@ Config.Fields = {
             ["unicorn"] = 0, -- [JobName] = MinRank,
             ["police"] = 0, -- [JobName] = MinRank,
         }, 
-        neededJobs = { -- if dont want make that jobs = false,
+        neededJobs = { -- if dont want make that neededJobs = false,
             ["police"] = 0, -- [JobName] = MinCount,
             ["sherrif"] = 0, -- [JobName] = MinCount,
         }, 
@@ -31,7 +31,7 @@ Config.Fields = {
         blipRadius = true,
         spawnedPlants = 0, DrugPlantsA = {}, DrugCoords = nil
     },
-	{
+    {
         FieldCoords = vector3(2351.28, 3070.52, 48.16),
         label = 'Crack',
         itemName = 'crack',
@@ -65,7 +65,7 @@ Config.Labs = {
             ["unicorn"] = 0, -- [JobName] = MinRank,
             ["police"] = 0, -- [JobName] = MinRank,
         }, 
-        neededJobs = { -- if dont want make that jobs = false,
+        neededJobs = { -- if dont want make that neededJobs = false,
             ["police"] = 0, -- [JobName] = MinCount,
             ["sherrif"] = 0, -- [JobName] = MinCount,
         }, 
