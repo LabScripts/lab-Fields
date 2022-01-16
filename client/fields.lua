@@ -116,7 +116,7 @@ Citizen.CreateThread(function()
 				end
 
 				for i = 1, #v.DrugPlantsA, 1 do
-					if #(coords - GetEntityCoords(v.DrugPlantsA[i])) < 1 then
+					if #(coords - GetEntityCoords(v.DrugPlantsA[i])) < 2 then
 						nearbyObject, nearbyID = v.DrugPlantsA[i], i
 					end
 				end
@@ -129,7 +129,7 @@ Citizen.CreateThread(function()
 					end
 
 					if Config.PropOutline then
-						if #(coords - GetEntityCoords(nearbyObject)) < 1.2 then
+						if #(coords - GetEntityCoords(nearbyObject)) < 1.8 then
 							SetEntityDrawOutline(nearbyObject, true)
 							SetEntityDrawOutlineColor(Config.OutlineColor.r, Config.OutlineColor.g, Config.OutlineColor.b,1)
 						else

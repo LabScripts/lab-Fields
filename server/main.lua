@@ -80,37 +80,8 @@ AddEventHandler('lab-fields:harvest', function(Index)
     end
 end)
 
---[[
-    A = {
-        LabCoords = vector3(1391.84, 3605.88, 38.96),
-        neededLabel = 'Poppy',
-        givenLabel = 'Heroin',
-        neededItem = 'poppyresin',
-        neededAmount = 5,
-        givenItem = 'heroin',
-        givenAmount = {Min = 1, Max = 5},
-        jobRestricted = true,
-        jobs = { -- if dont want make that jobs = false,
-            ["ballas"] = 0, -- [JobName] = MinRank,
-            ["unicorn"] = 0, -- [JobName] = MinRank,
-            ["police"] = 0, -- [JobName] = MinRank,
-        }, 
-        neededJobs = { -- if dont want make that jobs = false,
-            ["police"] = 0, -- [JobName] = MinCount,
-            ["sherrif"] = 0, -- [JobName] = MinCount,
-        }, 
-        duration = 6000, 
-        animDict= 'missmechanic',
-        anim = 'work2_base',
-        blip = true,
-        blipSprite = 403,
-        blipColour = 0,
-        blipRadius = true
-    },
-]]
 -- Processing Event
 RegisterServerEvent('lab-fields:process')
--- AddEventHandler('lab-fields:process', function(neededItem, neededAmount, neededLabel, givenItem, givenAmount, givenLabel, neededCops)
 AddEventHandler('lab-fields:process', function(Index)
     local Lab = Config.Labs[Index]
     local xPlayer = ESX.GetPlayerFromId(source)
