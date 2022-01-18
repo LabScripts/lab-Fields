@@ -53,6 +53,14 @@
         "version",
         "shared_scripts",
         "client_scripts",
-        "server_scripts"
+        "server_scripts",
+        "TriggerClientEvent",
+        "canCarryItem",
+        "canSwapItem",
+        "showNotification",
+        "GetPlayers"
+    ],
+    "Lua.diagnostics.disable": [
+        "redefined-local"
     ]
 }
