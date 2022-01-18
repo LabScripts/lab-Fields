@@ -58,7 +58,7 @@ function HaveEnough(JobTable)
                 break
             end
         end
-    else
+    elseif ESX.GetPlayers then
         local xPlayers = ESX.GetPlayers()
         local Connected = {}
         for i=1, #xPlayers, 1 do
@@ -69,7 +69,25 @@ function HaveEnough(JobTable)
             end
         end
         for k,v in pairs(JobTable) do
-            if Connected[k] < v then
+            if not Connected[k] or Connected[k] < v then
+                Have = false
+                break
+            end
+        end
+    else
+        local Players = GetPlayers()
+        local Connected = {}
+        for i=1, #Players, 1 do
+            local xPlayer = ESX.GetPlayerFromId(Players[i])
+            if xPlayer and xPlayer.job and xPlayer.job.name then
+                if JobTable[xPlayer.job.name] then
+                    if not Connected[xPlayer.job.name] then Connected[xPlayer.job.name] = 0 end
+                    Connected[xPlayer.job.name] = Connected[xPlayer.job.name] + 1
+                end
+            end
+        end
+        for k,v in pairs(JobTable) do
+            if not Connected[k] or Connected[k] < v then
                 Have = false
                 break
             end

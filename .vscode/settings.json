@@ -57,7 +57,8 @@
         "TriggerClientEvent",
         "canCarryItem",
         "canSwapItem",
-        "showNotification"
+        "showNotification",
+        "GetPlayers"
     ],
     "Lua.diagnostics.disable": [
         "redefined-local"
