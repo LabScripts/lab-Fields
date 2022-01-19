@@ -33,20 +33,6 @@ function canCarryItem(src, item, count)
     return ((item.limit == -1) or ((item.count + count) <= item.limit))
 end
 
-function canSwapItem(src, firstItem, firstItemCount, secendItem, secendItemCount)
-    local xPlayer = ESX.GetPlayerFromId(src)
-    local firstItemObject = xPlayer.getInventoryItem(firstItem)
-
-    if firstItemObject.count >= firstItemCount then
-        if canCarryItem(src, secendItem, secendItemCount) then
-            return true
-        end
-    end
-
-    return false
-end
-
-
 -- Get Enough Jobs Is in Server Or No
 function HaveEnough(JobTable)
     local Have = true
@@ -150,7 +136,7 @@ AddEventHandler('lab-fields:process', function(Index)
             local neededItem = Lab.neededItem
             local neededAmount = Lab.neededAmount
             local neededLabel = Lab.neededLabel or ESX.GetItemLabel(neededItem)
-            if (xPlayer.canSwapItem and xPlayer.canSwapItem(neededItem, neededAmount, givenItem, givenAmount)) or canSwapItem(source, neededItem, neededAmount, givenItem, givenAmount) then
+            if xPlayer.getInventoryItem(neededItem) and xPlayer.getInventoryItem(neededItem).count >= neededAmount and ((xPlayer.canCarryItem and xPlayer.canCarryItem(givenItem, givenAmount)) or canCarryItem(source, givenItem, givenAmount)) then
                 xPlayer.removeInventoryItem(neededItem, neededAmount)
                 xPlayer.addInventoryItem(givenItem, givenAmount)
                 showNotification(source, 'You processed: x' .. neededAmount .. ' ' .. neededLabel .. ' Into: x' .. givenAmount .. ' ' .. givenLabel ..'.')
