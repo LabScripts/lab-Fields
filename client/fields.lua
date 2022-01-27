@@ -169,6 +169,10 @@ Citizen.CreateThread(function()
 											v.spawnedPlants = v.spawnedPlants - 1
 											TriggerServerEvent("lab-fields:harvest", k)
 											isPickingUp = false
+										else
+											ClearPedTasks(PlayerPedId())
+											FreezeEntityPosition(PlayerPedId(), false)
+											isPickingUp = false
 										end
 									end
 								)
@@ -204,6 +208,10 @@ Citizen.CreateThread(function()
 										table.remove(v.DrugPlantsA, nearbyID)
 										v.spawnedPlants = v.spawnedPlants - 1
 										TriggerServerEvent("lab-fields:harvest", k)
+										isPickingUp = false
+									else
+										ClearPedTasks(PlayerPedId())
+										FreezeEntityPosition(PlayerPedId(), false)
 										isPickingUp = false
 									end
 								end
